@@ -1,0 +1,405 @@
+﻿using System;
+using System.ComponentModel.Design;
+using System.Globalization;
+using System.Reflection.Metadata;
+
+public class Programm
+{
+	static void information()// информаиця об авторе 
+	{ Console.WriteLine("Об авторе : 6105 Размолодина Дарья Артемовна "); }
+
+
+
+	public static double ReadDouble()// проверка на корректность ввода деситичного числа 
+	{
+
+		while (true)
+		{
+			if (!double.TryParse(Console.ReadLine(), out double peremen))
+			{
+				Console.WriteLine("Ошибка ввода, попробуйте ещё раз ");
+
+			}
+			else
+			{
+				return peremen;
+			}
+
+		}
+
+	}
+
+	public static byte ReadByte()// проверка на корректность ввода 
+	{
+
+		while (true)
+		{
+			if (!byte.TryParse(Console.ReadLine(), out byte peremen_2))
+			{
+				Console.WriteLine("Ошибка ввода, попробуйте ещё раз ");
+
+			}
+			else
+			{
+				return peremen_2;
+			}
+
+		}
+
+	}
+
+	public static char ReadChar()// проверка на корректность ввода символа 
+	{
+
+		while (true)
+		{
+			if (!char.TryParse(Console.ReadLine(), out char peremen_3))
+			{
+				Console.WriteLine("Ошибка ввода, попробуйте ещё раз ");
+
+			}
+			else
+			{
+				return peremen_3;
+			}
+
+		}
+
+	}
+
+	public static bool dilemma()// выход из программы 
+	{
+		bool chek = true;
+		while (chek)
+		{
+			Console.WriteLine("Выберите действие \n 'д' - == | Выход из программы| == \n 'н' - == | Остаться в программе | ==");
+			ReadChar();
+			if (ReadChar() == 'д')
+			{
+				return false;
+			}
+			else if (ReadChar() == 'н')
+			{
+				return true;
+			}
+			else
+			{
+				Console.WriteLine("Ошибка ввода ,попробуйте ещё раз ");
+				chek = false;
+			}
+
+		}
+		return true;
+
+	}
+	public static int Readint()// проверка на корректность ввода 
+	{
+
+		while (true)
+		{
+			if (!int.TryParse(Console.ReadLine(), out int peremen))
+			{
+				Console.WriteLine("Ошибка ввода, попробуйте ещё раз ");
+
+			}
+			else
+			{
+				return peremen;
+			}
+
+		}
+
+	}
+
+	public static int arrayLength() // вывод длины массива 
+	{
+		while (true)
+		{
+			Console.WriteLine("Введите предполагаемую длинну массива :");
+			int size = Readint();
+			if (size < 0 && size >= 10)
+			{
+				Console.WriteLine(" Ошибка: число должно быть положительным \n Вы запрашиватете слишком большое колличество элементов  ");
+			}
+
+			return size;
+
+		}
+
+	}
+	public static int[] creatingArray(int s)// метод по заполнению рандомными числами той длины , которой указал пользователь
+	{
+		int length = arrayLength();
+		int[] array = new int[length];
+		Random rnd = new Random();
+		for (int i = 0; i < length; i++)
+		{
+			array[i] = rnd.Next(-10, 10);
+		}
+		return array;
+	}
+
+	public static int[] meshalka(int[] arr2)// Сортировка перемешивания 
+	{
+		if (arr2 == null || arr2.Length == 0)
+		{
+			return arr2;
+		}
+		int left = 0;
+		int right = arr2.Length - 1;
+
+		while (left < right)
+		{
+			for (int i = left; i < arr2.Length - 1; i++)
+			{
+				if (arr2[i] > arr2[i + 1])
+				{
+					int indicator = arr2[i];
+					arr2[i] = arr2[i + 1];
+					arr2[i + 1] = indicator;
+
+				}
+			}
+			right--;
+
+			for (int i = right; i >= 1; i--)
+			{
+				if (arr2[i - 1] > arr2[i])
+				{
+					int indicator = arr2[i];
+					arr2[i] = arr2[i - 1];
+					arr2[i - 1] = indicator;
+
+				}
+			}
+			left++;
+		}
+
+		return arr2;
+	}
+
+	public static int[] dwarfSorting(int[] arr1)// гномья сортировка 
+	{
+		if (arr1 == null || arr1.Length == 0)
+		{
+			return arr1;
+		}
+
+		int indicator = 1;
+		while (indicator < arr1.Length)
+		{
+
+			if (indicator == 0 || arr1[indicator] >= arr1[indicator - 1])
+			{
+				indicator++;
+			}
+			else
+			{
+				int dopIndicator = arr1[indicator];
+				arr1[indicator] = arr1[indicator - 1];
+				arr1[indicator - 1] = dopIndicator;
+
+				indicator--;
+			}
+		}
+		return arr1;
+
+	}
+
+	public static int[] arrayCopy(int[] firstArry)// клон исходного массива 
+	{
+		if (firstArry == null)
+		{
+			return null;
+		}
+		int[] arryCopy = new int[firstArry.Length];
+		Array.Copy(firstArry, arryCopy, firstArry.Length);
+		return arryCopy;
+	}
+
+	public static void outputArray(int[] arr)// вывод и проверка массива 
+	{
+		if (arr.Length > 10)
+		{
+			Console.WriteLine("Ошибка ! Вывод массива не возможен , слишком большое колличество элементов:");
+			return;
+		}
+		else
+		{
+			Console.WriteLine("Ваш массив состоит из следующих элементов :");
+
+			Console.Write("[");
+			for (int i = 0; i < arr.Length; i++)
+			{
+				if (i < arr.Length - 1)
+				{
+					Console.Write(arr[i] + ", ");
+				}
+				else
+				{
+					Console.Write(arr[i] + "]");
+				}
+			}
+		}
+
+	}
+
+	public static double function(double a, double b)// метод по вычислению функции
+	{
+		double grad;
+		const double PI = Math.PI;
+		grad = b * PI / 180;
+		double f = Math.Pow(Math.Sin(3 * PI / 4 + a / 3), 2) + Math.Sqrt(grad);
+		return f;
+	}
+
+	public static void fortune()// угадайка
+	{
+		bool cnt = true;
+		while (cnt)
+		{
+			Console.WriteLine("Введите значение a :");
+			double a = ReadDouble();
+			Console.WriteLine("Введите значение b :");
+			double b = ReadDouble();
+			double answerF = function(a, b);
+			byte count = 0;
+			while (count < 3)
+			{
+				Console.Write("Угадайте значение функции, введите свой ответ : ");
+				ReadDouble();
+				if (ReadDouble() == Math.Round(answerF, 2))
+				{
+					Console.Write("Поздравляю , вы угадали ! : ");
+					count = 4;
+
+				}
+				else
+				{
+					Console.WriteLine("О нет ,попробуйте ещё раз ввести число: ");
+					count++;
+					if (count == 3)
+					{
+						Console.Write($"У вас закончились попытки ! Правильный ответ: {function(a, b)}");
+						Console.WriteLine("Конец игры ");
+						cnt = false;
+					}
+				}
+
+			}
+		}
+	}
+
+
+	public static void sortArray()
+	{
+		bool choice = true;
+
+		int sizeArray = arrayLength();
+
+		int[] myChoice = creatingArray(sizeArray);
+		int[] duplicate = arrayCopy(myChoice);
+
+		Console.WriteLine("=== < Злой Гном > === ");
+		Console.WriteLine();
+		int start1 = DateTime.Now.Millisecond;
+		int[] dwarf = dwarfSorting(duplicate);
+		int end1 = DateTime.Now.Millisecond;
+		Console.WriteLine("=== |Массив до сортировки|===");
+		outputArray(myChoice);
+		Console.WriteLine();
+		Console.WriteLine("=== |Массив после сортировки|===");
+		outputArray(dwarf);
+
+		Console.WriteLine();
+		int interval1 = end1 - start1;
+		Console.WriteLine($"Время выполнения :{interval1}");
+
+		Console.WriteLine("=== < Бетономешалка > === ");
+		int start2 = DateTime.Now.Millisecond;
+		Console.WriteLine();
+		int[] mixingSpoon = meshalka(duplicate);
+		int end2 = DateTime.Now.Millisecond;
+		Console.WriteLine("=== |Массив до сортировки|===");
+		outputArray(myChoice);
+		Console.WriteLine();
+		Console.WriteLine("=== |Массив после сортировки|===");
+		outputArray(mixingSpoon);
+
+		Console.WriteLine();
+		int interval2 = end2 - start2;
+		Console.WriteLine($"Время выполнения :{interval2}");
+
+		if (interval1 < interval2)
+		{
+			Console.WriteLine("Сортировка вида < Злой Гном > выгодней ");
+			choice = false;
+		}
+		else if (interval1 > interval2)
+		{
+			Console.WriteLine("Сортировка вида < Бетономешалка > выгодней ");
+			choice = false;
+		}
+		else
+		{
+			Console.WriteLine("Попробуйте выбрать другую длинну исходного массива ");
+
+
+		}
+
+
+	}
+
+
+
+	public static void Main()
+	{
+		bool chek = true;
+		while (chek)
+		{
+			Console.WriteLine(" === |Меню| === \n |1 - <Угадайка> \n |2 - <Информация об авторе>  \n |3 - <Сортировка массива> \n |4 - <Выход>");
+			Console.Write("Выберите соответсвующий пункт меню: ");
+			switch (ReadByte())
+			{
+				case 1: fortune(); break;
+				case 2: information(); break;
+				case 3: sortArray(); break;
+				case 4: dilemma(); break;
+				default: Console.WriteLine("Номер введённого пункта отсутвует, попробуйте ещё раз "); break;
+
+			}
+
+		}
+
+	}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
